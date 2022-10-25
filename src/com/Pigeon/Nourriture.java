@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public class Nourriture {
-    final int tempsPeremption = 10000;
+    final int tempsPeremption = 1000;
     private int coordonnee;
     private enum etatNourriture{PlusFraiche, Fraiche, Perimee};
     private etatNourriture etat;
@@ -24,6 +24,10 @@ public class Nourriture {
         return date;
     }
 
+    public int getCoordonnee(){
+        return coordonnee;
+    }
+    
     public void setEtat(){
         Date dateActuelle = new Date();
         long difference = dateActuelle.getTime() - getDate().getTime();
@@ -31,5 +35,5 @@ public class Nourriture {
             etat = etatNourriture.Perimee;
         }
     }
-
+    
 }
