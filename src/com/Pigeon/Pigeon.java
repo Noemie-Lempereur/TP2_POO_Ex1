@@ -33,7 +33,4 @@ public class Pigeon {
         etat=etatNew;
     }
 
-
-}
-
 }
