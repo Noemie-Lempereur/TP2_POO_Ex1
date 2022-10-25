@@ -3,11 +3,6 @@ package com.Pigeon;
 import java.lang.Thread;
 
 public class Pigeon {
-package com.Pigeon;
-
-import java.lang.Thread;
-
-public class Pigeon {
     private int coordonnee;
     private enum etatPigeon{Endormi, Reveille};
     private Pigeon.etatPigeon etat;
