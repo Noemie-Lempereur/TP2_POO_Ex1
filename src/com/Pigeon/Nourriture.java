@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public class Nourriture {
-    final int tempsPeremption = 1000;
+    final int tempsPeremption = 10000;
     private int coordonnee;
     private enum etatNourriture{PlusFraiche, Fraiche, Perimee};
     private etatNourriture etat;
