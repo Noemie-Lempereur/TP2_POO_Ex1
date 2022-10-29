@@ -1,4 +1,3 @@
-package com.Pigeon;
 
 import java.util.Date;
 
@@ -6,7 +5,7 @@ import java.util.Date;
 public class Nourriture {
     final int tempsPeremption = 1000;
     private int coordonnee;
-    private enum etatNourriture{PlusFraiche, Fraiche, Perimee};
+    public enum etatNourriture{PlusFraiche, Fraiche, Perimee};
     private etatNourriture etat;
     private Date date;
 
@@ -33,7 +32,8 @@ public class Nourriture {
         long difference = dateActuelle.getTime() - getDate().getTime();
         if (difference > tempsPeremption) {
             etat = etatNourriture.Perimee;
+        }else{
+            etat = etatNourriture.Fraiche;
         }
     }
-    
 }

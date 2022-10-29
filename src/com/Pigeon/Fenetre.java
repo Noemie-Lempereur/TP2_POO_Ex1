@@ -1,6 +1,7 @@
-package com.Pigeon;
+
 
 public class Fenetre {
+    static int TAILLE = 15;
 
 
 }
