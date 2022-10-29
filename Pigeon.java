@@ -30,7 +30,7 @@ public class Pigeon extends Thread{
         try {
             while(this.isAlive()) {
                 this.sleep(500);
-                System.out.println("Hola");
+                System.out.println("Hola "+this.getCoordonnee());
             }
 
         } catch (Exception e) {
