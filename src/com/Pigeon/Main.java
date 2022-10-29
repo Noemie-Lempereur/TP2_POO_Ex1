@@ -41,6 +41,7 @@ public class Main {
                     }
                     if(rajoutPigeon){
                         Pigeon pigeon=new Pigeon(coordAleatoire);
+                        pigeon.start();
                         pigeons.add(pigeon);
                         System.out.println("Ajout pigeon :"+coordAleatoire);
                     }

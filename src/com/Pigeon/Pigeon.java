@@ -4,12 +4,9 @@ public class Pigeon extends Thread{
         Endormi, Reveille
     };
     private Pigeon.etatPigeon etat;
-    public Thread threadPigeon;
     public Pigeon(int coordonneeNew) {
         this.etat = etatPigeon.Reveille;
         this.coordonnee = coordonneeNew;
-        this.threadPigeon = new Thread();
-        threadPigeon.start();
     }
     public int getCoordonnee() {
         return coordonnee;
@@ -24,22 +21,24 @@ public class Pigeon extends Thread{
         etat = etatNew;
     }
 
-    public void start() {
+    /*public void start() {
         threadPigeon = new Thread();
         threadPigeon.start();
-    }
+    }*/
 
     public void run() {
         try {
-            Thread threadPigeo = currentThread();
-
+            while(this.isAlive()) {
+                this.sleep(500);
+                System.out.println("Hola "+this.getCoordonnee());
+            }
 
         } catch (Exception e) {
 
         }
     }
 
-    public void arret(){
+    /*public void arret(){
         threadPigeon.interrupt();
-    }
+    }*/
 }
