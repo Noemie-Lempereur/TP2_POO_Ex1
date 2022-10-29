@@ -23,7 +23,7 @@ public class Nourriture {
         return date;
     }
 
-    public int getCoordonnee(){
+    public int getCoordonneeN(){
         return coordonnee;
     }
     

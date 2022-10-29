@@ -1,56 +1,64 @@
 import java.util.ArrayList;
 
 public class Main {
-    static ArrayList<Nourriture> nourritures = new ArrayList<Nourriture>();
-    static ArrayList<Pigeon> pigeons = new ArrayList<Pigeon>();
-    public static void main(String[] args){
+    public static ArrayList<Nourriture> nourritures = new ArrayList<Nourriture>();
+    public static ArrayList<Pigeon> pigeons = new ArrayList<Pigeon>();
+    public static Nourriture plusFraiche = new Nourriture(0);
+
+    public static void main(String[] args) {
         try {
             while (true) {
-                //Nourriture
-                int coordoonneeNourriture=0;    //à modifier par rapport à l'endroit où clique l'utilisateur
+                // Nourriture
+                int coordoonneeNourriture = 0; // à modifier par rapport à l'endroit où clique l'utilisateur
                 boolean rajoutNourriture = true;
-                //Update de la nourriture
-                for(Nourriture n : nourritures){
-                    n.setEtat();
-                    if(n.getEtat()== Nourriture.etatNourriture.Perimee){
+                int nbNourriture = nourritures.size();
+                // Update de la nourriture
+                for (Nourriture n : nourritures) {
+                    if (n.getEtat() != Nourriture.etatNourriture.PlusFraiche) {
+                        n.setEtat();
+                    }
+                    if (n.getEtat() == Nourriture.etatNourriture.Perimee) {
                         nourritures.remove(n);
                     }
-                    //Verification que la coordonnée est libre pour ajouter la nouvelle nourriture
-                    if(coordoonneeNourriture!=0 && n.getCoordonnee()==coordoonneeNourriture && rajoutNourriture){
+                    // Verification que la coordonnée est libre pour ajouter la nouvelle nourriture
+                    if (coordoonneeNourriture != 0 && n.getCoordonneeN() == coordoonneeNourriture && rajoutNourriture) {
                         rajoutNourriture = false;
                     }
                 }
-                //Ajout de nouvelle nourriture si aucune nourriture à la même place
-                if (coordoonneeNourriture!=0 && rajoutNourriture) {
+                // Ajout de nouvelle nourriture si aucune nourriture à la même place
+                if (coordoonneeNourriture != 0 && rajoutNourriture) {
+                    if (nbNourriture != 0) {
+                        plusFraiche.setEtat();
+                    }
                     Nourriture nourriture = new Nourriture(coordoonneeNourriture);
+                    plusFraiche = nourriture;
                     nourritures.add(nourriture);
                 }
 
-                //Pigeon
-                int ajout = 1 + (int)(Math.random() * 500000000);
-                if (ajout==1) {
+                // Pigeon
+                int ajout = 1 + (int) (Math.random() * 500000000);
+                if (ajout == 1) {
                     boolean rajoutPigeon = true;
                     int coordAleatoire = 1 + (int) (Math.random() * (Fenetre.TAILLE));
                     for (Pigeon p : pigeons) {
-                        //Verification que la coordonnée est libre pour ajouter le nouveau pigeon
+                        // Verification que la coordonnée est libre pour ajouter le nouveau pigeon
                         if (p.getCoordonnee() == coordAleatoire && rajoutPigeon) {
                             rajoutPigeon = false;
                             break;
                         }
 
                     }
-                    if(rajoutPigeon){
-                        Pigeon pigeon=new Pigeon(coordAleatoire);
+                    if (rajoutPigeon) {
+                        Pigeon pigeon = new Pigeon(coordAleatoire);
                         pigeon.start();
                         pigeons.add(pigeon);
-                        System.out.println("Ajout pigeon :"+coordAleatoire);
+                        System.out.println("Ajout pigeon :" + coordAleatoire);
                     }
                 }
 
-
             }
-        }catch(Exception e){
-            System.out.println("Erreur dans le main : "+e);
+        } catch (Exception e) {
+            System.out.println("Erreur dans le main : " + e);
         }
     }
 }
