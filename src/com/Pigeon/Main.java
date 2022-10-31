@@ -28,9 +28,12 @@ public class Main {
                     if (n.getEtat() != Nourriture.etatNourriture.PlusFraiche) {
                         n.setEtat();
                     }
-                    // if (n.getEtat() == Nourriture.etatNourriture.Perimee) {
-                    // nourritures.remove(n);
-                    /// }
+                    /*
+                     * if (n.getEtat() == Nourriture.etatNourriture.Perimee) {
+                     * nourritures.remove(n);
+                     * }
+                     */
+
                     // Verification que la coordonnée est libre pour ajouter la nouvelle nourriture
                     if (coordoonneeNourriture != 0 && n.getCoordonneeN() == coordoonneeNourriture && rajoutNourriture) {
                         rajoutNourriture = false;

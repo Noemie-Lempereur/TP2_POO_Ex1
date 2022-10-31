@@ -2,7 +2,7 @@
 import java.util.Date;
 
 public class Nourriture {
-    final int tempsPeremption = 500000;
+    final int tempsPeremption = 5000000;
     private int coordonnee;
 
     public enum etatNourriture {
