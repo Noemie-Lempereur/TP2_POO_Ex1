@@ -11,9 +11,15 @@ public class Main {
         plusFraiche = nourritureTest;
         nourritures.add(nourritureTest);
         // Test de pigeon
-        Pigeon pigeonTest = new Pigeon(12);
+        Pigeon pigeonTest = new Pigeon(11);
         pigeonTest.start();
         pigeons.add(pigeonTest);
+        Pigeon pigeonTest2 = new Pigeon(13);
+        pigeonTest2.start();
+        pigeons.add(pigeonTest2);
+        Pigeon pigeonTest3 = new Pigeon(1);
+        pigeonTest3.start();
+        pigeons.add(pigeonTest3);
 
         try {
             while (true) {
@@ -51,6 +57,7 @@ public class Main {
                 }
 
                 // Pigeon
+
                 int ajout = 1 + (int) (Math.random() * 500000000);
                 if (ajout == 1) {
                     boolean rajoutPigeon = true;
@@ -71,6 +78,22 @@ public class Main {
                     }
                 }
 
+                // Pigeons effrayés
+                int proba = (pigeons.size() - nourritures.size())
+                        + (int) (Math.random() * ((999999999 - (pigeons.size() - nourritures.size())) + 1));
+                if (proba <= 5) {
+                    System.out.println("Les pigeons sont effrayés");
+                    for (Pigeon p : pigeons) {
+                        boolean[] tab = new boolean[Fenetre.TAILLE];
+                        int coordAleatoire = 1 + (int) (Math.random() * (Fenetre.TAILLE));
+                        while (tab[coordAleatoire - 1]) {
+                            coordAleatoire = 1 + (int) (Math.random() * (Fenetre.TAILLE));
+                            tab[coordAleatoire - 1] = true;
+                        }
+                        p.setCoordonnee(coordAleatoire);
+                        System.out.println("p :" + coordAleatoire);
+                    }
+                }
             }
         } catch (Exception e) {
             System.out.println("Erreur dans le main : " + e);
