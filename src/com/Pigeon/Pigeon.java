@@ -1,6 +1,8 @@
 import java.util.Calendar;
 import java.util.Date;
 
+import Nourriture.etatNourriture;
+
 public class Pigeon extends Thread {
     private int coordonnee;
 
