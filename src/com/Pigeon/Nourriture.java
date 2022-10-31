@@ -1,11 +1,14 @@
 
 import java.util.Date;
 
-
 public class Nourriture {
-    final int tempsPeremption = 1000;
+    final int tempsPeremption = 500000;
     private int coordonnee;
-    public enum etatNourriture{PlusFraiche, Fraiche, Perimee};
+
+    public enum etatNourriture {
+        PlusFraiche, Fraiche, Perimee
+    };
+
     private etatNourriture etat;
     private Date date;
 
@@ -15,25 +18,33 @@ public class Nourriture {
         this.coordonnee = coordonneeNew;
     }
 
-    public etatNourriture getEtat(){
+    public etatNourriture getEtat() {
         return etat;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
-    public int getCoordonneeN(){
+    public int getCoordonneeN() {
         return coordonnee;
     }
-    
-    public void setEtat(){
+
+    public void setEtat() {
         Date dateActuelle = new Date();
         long difference = dateActuelle.getTime() - getDate().getTime();
         if (difference > tempsPeremption) {
             etat = etatNourriture.Perimee;
-        }else{
+        } else {
             etat = etatNourriture.Fraiche;
         }
+    }
+
+    public void setEtatPlusFraiche() {
+        etat = etatNourriture.PlusFraiche;
+    }
+
+    public void setCoordonnee(int coordonneeNew) {
+        coordonnee = coordonneeNew;
     }
 }

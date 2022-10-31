@@ -6,20 +6,31 @@ public class Main {
     public static Nourriture plusFraiche = new Nourriture(0);
 
     public static void main(String[] args) {
+        // Test de nourriture
+        Nourriture nourritureTest = new Nourriture(3);
+        plusFraiche = nourritureTest;
+        nourritures.add(nourritureTest);
+        // Test de pigeon
+        Pigeon pigeonTest = new Pigeon(12);
+        pigeonTest.start();
+        pigeons.add(pigeonTest);
+
         try {
             while (true) {
                 // Nourriture
                 int coordoonneeNourriture = 0; // à modifier par rapport à l'endroit où clique l'utilisateur
                 boolean rajoutNourriture = true;
                 int nbNourriture = nourritures.size();
+
                 // Update de la nourriture
                 for (Nourriture n : nourritures) {
+
                     if (n.getEtat() != Nourriture.etatNourriture.PlusFraiche) {
                         n.setEtat();
                     }
-                    if (n.getEtat() == Nourriture.etatNourriture.Perimee) {
-                        nourritures.remove(n);
-                    }
+                    // if (n.getEtat() == Nourriture.etatNourriture.Perimee) {
+                    // nourritures.remove(n);
+                    /// }
                     // Verification que la coordonnée est libre pour ajouter la nouvelle nourriture
                     if (coordoonneeNourriture != 0 && n.getCoordonneeN() == coordoonneeNourriture && rajoutNourriture) {
                         rajoutNourriture = false;
@@ -33,6 +44,7 @@ public class Main {
                     Nourriture nourriture = new Nourriture(coordoonneeNourriture);
                     plusFraiche = nourriture;
                     nourritures.add(nourriture);
+
                 }
 
                 // Pigeon

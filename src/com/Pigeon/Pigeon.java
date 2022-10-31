@@ -1,3 +1,6 @@
+import java.util.Calendar;
+import java.util.Date;
+
 public class Pigeon extends Thread {
     private int coordonnee;
 
@@ -28,19 +31,13 @@ public class Pigeon extends Thread {
         etat = etatNew;
     }
 
-    /*
-     * public void start() {
-     * threadPigeon = new Thread();
-     * threadPigeon.start();
-     * }
-     */
-
     public void run() {
         try {
-            while (this.isAlive()) {
-                if (Main.plusFraiche.getCoordonneeN() != 0) {
+            while (!this.isInterrupted()) {
+                System.out.println("Hola " + this.getCoordonnee());
+                if (Main.nourritures.size() > 0) {
+                    this.setEtat(etatPigeon.Reveille);
                     Thread.sleep(500);
-                    System.out.println("Hola " + this.getCoordonnee());
                     int coord = this.getCoordonnee();
                     if (coord == Main.plusFraiche.getCoordonneeN()) {
                         Main.nourritures.remove(Main.plusFraiche);
@@ -52,10 +49,32 @@ public class Pigeon extends Thread {
                         coord--;
                     }
                     this.setCoordonnee(coord);
+
+                    System.out.println("Hola " + this.getCoordonnee());
                     if (coord == Main.plusFraiche.getCoordonneeN()) {
                         Main.nourritures.remove(Main.plusFraiche);
+                        Main.plusFraiche.setCoordonnee(0);
+
+                        Calendar calendrier = Calendar.getInstance();
+                        calendrier.set(Calendar.YEAR, 2000);
+                        calendrier.set(Calendar.MONTH, 1);
+                        calendrier.set(Calendar.DAY_OF_MONTH, 1);
+                        Date DatePlusFraiche = calendrier.getTime();
+
+                        Nourriture NourritureFraiche = new Nourriture(0);
+                        for (Nourriture n : Main.nourritures) {
+                            if (n.getDate().getTime() - DatePlusFraiche.getTime() > 0) {
+                                DatePlusFraiche = n.getDate();
+                                NourritureFraiche = n;
+                            }
+                        }
+                        NourritureFraiche.setEtatPlusFraiche();
+
+                        Main.pigeons.remove(this);
                         this.interrupt();
                     }
+                } else {
+                    this.setEtat(etatPigeon.Endormi);
                 }
             }
 
@@ -63,10 +82,4 @@ public class Pigeon extends Thread {
 
         }
     }
-
-    /*
-     * public void arret(){
-     * threadPigeon.interrupt();
-     * }
-     */
 }
