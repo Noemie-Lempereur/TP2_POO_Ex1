@@ -7,10 +7,10 @@ public class Nourriture {
 
     public enum etatNourriture {
         PlusFraiche, Fraiche, Perimee
-    };
+    }
 
     private etatNourriture etat;
-    private Date date;
+    private final Date date;
 
     public Nourriture(int coordonneeNew) {
         this.etat = etatNourriture.PlusFraiche;

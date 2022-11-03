@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Main {
-    public static ArrayList<Nourriture> nourritures = new ArrayList<Nourriture>();
-    public static ArrayList<Pigeon> pigeons = new ArrayList<Pigeon>();
+    public static ArrayList<Nourriture> nourritures = new ArrayList<>();
+    public static ArrayList<Pigeon> pigeons = new ArrayList<>();
     public static Nourriture plusFraiche = new Nourriture(0);
 
     public static void main(String[] args) {
