@@ -22,7 +22,7 @@ public class Fenetre extends JFrame {
         this.startGame=false;
         this.nourritures = new ArrayList<>();
         this.pigeons = new ArrayList<>();
-        this.plusFraiche = new Nourriture(-1);
+        this.plusFraiche = null;
         this.cells = new Cell[TAILLE];
 
         try {
@@ -121,7 +121,7 @@ public class Fenetre extends JFrame {
     public void addNourriture(Nourriture nourriture){
         for (Nourriture n:nourritures) {
             if(n == plusFraiche){
-                n.setEtat(Nourriture.etatNourriture.Fraiche);
+                n.setEtat();
             }
         }
         nourritures.add(nourriture);
@@ -170,9 +170,12 @@ public class Fenetre extends JFrame {
 
     public void resetPlusFraiche() {
         if(nourritures.size()>0){
-            plusFraiche.setEtat(Nourriture.etatNourriture.Fraiche);
-            plusFraiche=new Nourriture(nourritures.get(nourritures.size()-1).getCoordonneeN());
-            nourritures.get(nourritures.size()-1).setEtat(Nourriture.etatNourriture.PlusFraiche);
+            plusFraiche.setEtat();
+            for (Nourriture n:nourritures) {
+                n.setEtat();
+            }
+            plusFraiche=nourritures.get(nourritures.size()-1);
+            nourritures.get(nourritures.size()-1).setEtatPlusFraiche();
         }else{
             plusFraiche=null;
         }

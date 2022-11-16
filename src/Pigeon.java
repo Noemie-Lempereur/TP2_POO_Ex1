@@ -41,7 +41,9 @@ public class Pigeon extends Thread {
                 if (fenetre.getNourritures().size() > 0) {
                     this.setEtat(etatPigeon.Reveille);
                     Thread.sleep(1000);
+                    fenetre.resetPlusFraiche();
                     int coord = this.getCoordonnee();
+                    fenetre.getCells()[coord].setIcon(new ImageIcon("img/pigeon.png"));
                     for (Nourriture n : fenetre.getNourritures()) {
                         if (coord == n.getCoordonneeN() && n.getEtat() != Nourriture.etatNourriture.Perimee) {
                             fenetre.removeNourriture(n);
@@ -88,6 +90,9 @@ public class Pigeon extends Thread {
                     }
                     this.setCoordonnee(coord);
                     fenetre.resetPlusFraiche();
+                }else{
+                    this.setEtat(etatPigeon.Endormi);
+                    fenetre.getCells()[this.getCoordonnee()].setIcon(new ImageIcon("img/pigeonDort.png"));
                 }
             }
 

@@ -12,7 +12,7 @@ public class Button extends JButton {
         this.fenetre=fenetre;
         this.coordonnee = coordonnee;
         this.setText("Add");
-        this.setPreferredSize(new Dimension(62,32));
+        this.setPreferredSize(new Dimension(62,33));
         this.setBackground(Color.yellow);
         ActionListener buttonListener = new ActionListener() {
             @Override
@@ -25,7 +25,7 @@ public class Button extends JButton {
                             break;
                         }
                     }
-                    fenetre.addNourriture(new Nourriture(coordonnee));
+                    fenetre.addNourriture(new Nourriture(coordonnee,fenetre));
                     fenetre.getCells()[coordonnee].setIcon(new ImageIcon("img/graines.png"));
                 }
             }
