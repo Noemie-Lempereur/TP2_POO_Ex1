@@ -2,7 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StartAction implements ActionListener {
-    private Fenetre fenetre;
+    private final Fenetre fenetre;
 
     public StartAction(Fenetre fenetre){
         this.fenetre=fenetre;

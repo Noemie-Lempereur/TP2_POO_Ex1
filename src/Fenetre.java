@@ -1,21 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Fenetre extends JFrame {
-    private ArrayList<Nourriture> nourritures;
-    private ArrayList<Pigeon> pigeons;
+    private final ArrayList<Nourriture> nourritures;
+    private final ArrayList<Pigeon> pigeons;
     private Nourriture plusFraiche;
-    private Cell[] cells;
+    private final Cell[] cells;
+    private final JLabel[] numeroPig;
     private final int TAILLE = 15;
     private boolean startGame;
-    private JButton startButton;
+    private final JButton startButton;
 
     public Fenetre(){
         super();
@@ -24,6 +20,7 @@ public class Fenetre extends JFrame {
         this.pigeons = new ArrayList<>();
         this.plusFraiche = null;
         this.cells = new Cell[TAILLE];
+        this.numeroPig = new JLabel[TAILLE];
 
         try {
             final Image backgroundImage = javax.imageio.ImageIO.read(
@@ -59,15 +56,20 @@ public class Fenetre extends JFrame {
         vide3.setOpaque(false);
         JPanel vide4 = new JPanel();
         vide4.setOpaque(false);
-        JPanel vide5 = new JPanel();
-        vide5.setOpaque(false);
 
+        JPanel numeroPigeon = new JPanel(new GridLayout(1, TAILLE, 2,2));
+        numeroPigeon.setOpaque(false);
+        for (int i = 0; i < TAILLE ; i++){
+            JLabel lab = new JLabel("",SwingConstants.CENTER);
+            numeroPig[i]=lab;
+            numeroPigeon.add(lab);
+        }
 
         JPanel imgPanel = new JPanel(new GridLayout(1, TAILLE, 2,2));
         imgPanel.setOpaque(false);
 
         for (int i = 0; i < TAILLE ; i++){
-            Cell button = new Cell(i,this);
+            Cell button = new Cell();
             cells[i]=button;
             imgPanel.add(button);
         }
@@ -82,7 +84,7 @@ public class Fenetre extends JFrame {
         gamePanel.add(vide2);
         gamePanel.add(vide3);
         gamePanel.add(vide4);
-        gamePanel.add(vide5);
+        gamePanel.add(numeroPigeon);
         gamePanel.add(imgPanel);
         gamePanel.add(buttonPanel);
         gamePanel.add(start);
@@ -139,6 +141,7 @@ public class Fenetre extends JFrame {
         pigeons.add(pigeon);
         cells[pigeon.getCoordonnee()].setIcon(new ImageIcon("img/pigeon.png"));
         cells[pigeon.getCoordonnee()].setEtat(1);
+        numeroPig[pigeon.getCoordonnee()].setText(""+pigeon.getNumero());
     }
 
     public void removePigeon(Pigeon p){
@@ -146,6 +149,7 @@ public class Fenetre extends JFrame {
             cells[p.getCoordonnee()].setIcon(new ImageIcon());
             cells[p.getCoordonnee()].setEtat(0);
             pigeons.remove(p);
+            numeroPig[p.getCoordonnee()].setText("");
         }catch (Exception e) {
             System.out.println(e);
         }
@@ -179,5 +183,9 @@ public class Fenetre extends JFrame {
         }else{
             plusFraiche=null;
         }
+    }
+
+    public JLabel[] getNumeroPig() {
+        return numeroPig;
     }
 }

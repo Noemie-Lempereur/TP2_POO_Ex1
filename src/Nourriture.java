@@ -3,9 +3,9 @@ import javax.swing.*;
 import java.util.Date;
 
 public class Nourriture {
-    final int tempsPeremption = 5000;
-    private int coordonnee;
-    private Fenetre fenetre;
+    final int tempsPeremption = 8000;
+    private final int coordonnee;
+    private final Fenetre fenetre;
 
     public enum etatNourriture {
         PlusFraiche, Fraiche, Perimee

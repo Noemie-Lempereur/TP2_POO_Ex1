@@ -1,45 +1,32 @@
 import javax.swing.*;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Pigeon extends Thread {
     private int coordonnee;
+    private final int numero;
+    static int num;
 
-    public enum etatPigeon {
-        Endormi, Reveille
-    };
-
-    private etatPigeon etat;
     private final Fenetre fenetre;
 
     public Pigeon(int coordonneeNew,Fenetre fenetre) {
-        this.etat = etatPigeon.Reveille;
         this.coordonnee = coordonneeNew;
         this.fenetre=fenetre;
+        this.numero=num;
+        num++;
     }
 
     public int getCoordonnee() {
         return coordonnee;
     }
 
-    public etatPigeon getEtat() {
-        return etat;
-    }
-
     public void setCoordonnee(int coordonneeNew) {
         coordonnee = coordonneeNew;
     }
-
-    public void setEtat(etatPigeon etatNew) {
-        etat = etatNew;
-    }
-
 
     public void run() {
         try {
             while (!this.isInterrupted()) {
                 if (fenetre.getNourritures().size() > 0) {
-                    this.setEtat(etatPigeon.Reveille);
+                    //le pigeon est réveillé
                     Thread.sleep(1000);
                     fenetre.resetPlusFraiche();
                     int coord = this.getCoordonnee();
@@ -54,8 +41,8 @@ public class Pigeon extends Thread {
                         }
                     }
                     if(fenetre.getPlusFraiche()!=null) {
+                        boolean deplacementPossible = true;
                         if (coord < fenetre.getPlusFraiche().getCoordonneeN()) {
-                            boolean deplacementPossible = true;
                             for (Pigeon p : fenetre.getPigeons()) {
                                 if (p.getCoordonnee() == coord + 1) {
                                     deplacementPossible = false;
@@ -65,12 +52,13 @@ public class Pigeon extends Thread {
                             if (deplacementPossible) {
                                 fenetre.getCells()[coord].setEtat(0);
                                 fenetre.getCells()[coord].setIcon(new ImageIcon());
+                                fenetre.getNumeroPig()[coord].setText("");
                                 coord++;
                                 fenetre.getCells()[coord].setEtat(1);
                                 fenetre.getCells()[coord].setIcon(new ImageIcon("img/pigeon.png"));
+                                fenetre.getNumeroPig()[coord].setText(""+numero);
                             }
                         } else {
-                            boolean deplacementPossible = true;
                             for (Pigeon p : fenetre.getPigeons()) {
                                 if (p.getCoordonnee() == coord - 1) {
                                     if (p != this) {
@@ -82,22 +70,42 @@ public class Pigeon extends Thread {
                             if (deplacementPossible) {
                                 fenetre.getCells()[coord].setEtat(0);
                                 fenetre.getCells()[coord].setIcon(new ImageIcon());
+                                fenetre.getNumeroPig()[coord].setText("");
                                 coord--;
                                 fenetre.getCells()[coord].setEtat(1);
                                 fenetre.getCells()[coord].setIcon(new ImageIcon("img/pigeon.png"));
+                                fenetre.getNumeroPig()[coord].setText(""+numero);
                             }
                         }
                     }
                     this.setCoordonnee(coord);
                     fenetre.resetPlusFraiche();
                 }else{
-                    this.setEtat(etatPigeon.Endormi);
+                    //Le pigeon est endormi
                     fenetre.getCells()[this.getCoordonnee()].setIcon(new ImageIcon("img/pigeonDort.png"));
+                }
+                // Pigeon effrayé
+                int aleatoire = (int) (Math.random() * 9999);
+                int proba = (int) (Math.random() * (999999999 - aleatoire));
+                if (proba <= 3) {
+                    int coordAleatoire = (int) (Math.random() * (fenetre.getTAILLE()));
+                    while (fenetre.getCells()[coordAleatoire].getEtat()==1) {
+                        coordAleatoire = (int) (Math.random() * (fenetre.getTAILLE()));
+                    }
+                    fenetre.getCells()[this.getCoordonnee()].setEtat(0);
+                    fenetre.getCells()[this.getCoordonnee()].setIcon(new ImageIcon(""));
+                    this.setCoordonnee(coordAleatoire);
+                    fenetre.getCells()[this.getCoordonnee()].setEtat(1);
+                    fenetre.getCells()[this.getCoordonnee()].setIcon(new ImageIcon("img/pigeon.png"));
                 }
             }
 
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public int getNumero() {
+        return numero;
     }
 }
