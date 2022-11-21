@@ -26,12 +26,12 @@ public class Pigeon extends Thread {
         try {
             while (!this.isInterrupted()) {
                 if (fenetre.getNourritures().size() > 0) {
-                    //le pigeon est réveillé
                     Thread.sleep(1000);
                     fenetre.resetPlusFraiche();
+                    //le pigeon est réveillé
                     int coord = this.getCoordonnee();
                     fenetre.getCells()[coord].setIcon(new ImageIcon("img/pigeon.png"));
-                    for (Nourriture n : fenetre.getNourritures()) {
+                    for (Nourriture n : fenetre.getNourritures()) { //si le pigeon se trouve sur de la nourriture il l'a mange
                         if (coord == n.getCoordonneeN() && n.getEtat() != Nourriture.etatNourriture.Perimee) {
                             fenetre.removeNourriture(n);
                             fenetre.removePigeon(this);
@@ -42,14 +42,14 @@ public class Pigeon extends Thread {
                     }
                     if(fenetre.getPlusFraiche()!=null) {
                         boolean deplacementPossible = true;
-                        if (coord < fenetre.getPlusFraiche().getCoordonneeN()) {
-                            for (Pigeon p : fenetre.getPigeons()) {
+                        if (coord < fenetre.getPlusFraiche().getCoordonneeN()) {    //si la nourriture fraiche se trouve à droite du pigeon
+                            for (Pigeon p : fenetre.getPigeons()) { //verification qu'il n'y a pas de pigeon sur la case à droite
                                 if (p.getCoordonnee() == coord + 1) {
                                     deplacementPossible = false;
                                     break;
                                 }
                             }
-                            if (deplacementPossible) {
+                            if (deplacementPossible) {  //s'il peut se deplacer (pas de pigeon à droite)
                                 fenetre.getCells()[coord].setEtat(0);
                                 fenetre.getCells()[coord].setIcon(new ImageIcon());
                                 fenetre.getNumeroPig()[coord].setText("");
@@ -58,8 +58,8 @@ public class Pigeon extends Thread {
                                 fenetre.getCells()[coord].setIcon(new ImageIcon("img/pigeon.png"));
                                 fenetre.getNumeroPig()[coord].setText(""+numero);
                             }
-                        } else {
-                            for (Pigeon p : fenetre.getPigeons()) {
+                        } else {    //si la nourriture fraiche se trouve à gauche du pigeon
+                            for (Pigeon p : fenetre.getPigeons()) { //verification qu'il n'y a pas de pigeon sur la case à gauche
                                 if (p.getCoordonnee() == coord - 1) {
                                     if (p != this) {
                                         deplacementPossible = false;
@@ -67,7 +67,7 @@ public class Pigeon extends Thread {
                                     }
                                 }
                             }
-                            if (deplacementPossible) {
+                            if (deplacementPossible) {    //s'il peut se deplacer (pas de pigeon à gauche)
                                 fenetre.getCells()[coord].setEtat(0);
                                 fenetre.getCells()[coord].setIcon(new ImageIcon());
                                 fenetre.getNumeroPig()[coord].setText("");
