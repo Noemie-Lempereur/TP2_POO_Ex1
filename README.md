@@ -1,7 +1,7 @@
 # TP2_POO_Ex1
 
 
-1. Pour lancer le programme il faut excetuer le Main présent dans src/default package. Aucune librairie suplémentaire n'est nécessaire.
+1. Pour lancer le programme il faut executer le Main présent dans src/default package. Aucune librairie suplémentaire n'est nécessaire.
 
 2. Le programme se lance. 
 
